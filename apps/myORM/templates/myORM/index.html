@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ORM Example</title>
+  </head>
+  <body>
+    <h2>Hello World!</h2>
+    {% for blog in blogs  %}
+      <h4>{{blog.title}}</h4>
+      <p>{{blog.blog}}</p>
+      {% for comment in blog.comment_set.all %}
+        {{comment.comment}}
+      {% endfor %}
+      <form action="/comments/{{blog.id}}" method="post">
+        {% csrf_token %}
+        <label for="">Comment about Blog</label>
+        <textarea name="comment" rows="8" cols="80"></textarea>
+        <input type="submit" name="" value="Comment on Blog">
+      </form>
+    {% endfor %}
+    <form action="/blogs" method="post">
+      {% csrf_token %}
+      <label for="">Title of Blog</label>
+      <input type="text" name="title">
+      <textarea name="blog" rows="8" cols="40"></textarea>
+      <input type="submit" name="" value="Enter Blog">
+    </form>
+
+  </body>
+</html>
